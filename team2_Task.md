@@ -25,4 +25,6 @@
 
 ---
 
+Notice: Each member should update this document with their progress and any challenges they encounter accordingly. Regular check-ins will be scheduled to ensure that everyone is on track and to address any issues promptly.
+
 

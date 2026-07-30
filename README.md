@@ -93,11 +93,11 @@ Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
 │ │ │ # validation rules, audit_events writer
 │ │ │
 │ │ ├── structures/
-│ │ │ ├── core/ # TEAM 4 — Core Data Structures
+│ │ │ ├── core/ # TEAM 2 — Core Data Structures
 │ │ │ │ # DynamicArray, LinkedList, Stack, Queue,
 │ │ │ │ # CircularQueue, Deque
 │ │ │ │
-│ │ │ └── indexing/ # TEAM 2 — Trees & Indexing
+│ │ │ └── indexing/ # TEAM 4 — Trees & Indexing
 │ │ │ # Heap/PriorityQueue, BST, RedBlackTree,
 │ │ │ # BTree, HashTable, MySet/MyMap, DisjointSet
 │ │ │
@@ -131,7 +131,7 @@ Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
   `PriorityQueue`, `Stack`, `ArrayDeque`, `TreeMap`, etc. inside `structures/`,
   `graph/`, or `algorithms/`. Use them freely in `db/` or `app/` if it's just
   plumbing, not assessed logic.
-- **Work in your own package.** Team 2 doesn't touch `structures/core`, Team 4
+- **Work in your own package.** Team 4 doesn't touch `structures/core`, Team 2
   doesn't touch `structures/indexing`, etc. Cuts merge conflicts to near zero.
 - **`model/` is shared.** If you need a new field on `Patient` or `Ward`, ping
   the team before changing it — everyone's code depends on it.
@@ -144,7 +144,7 @@ Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
 ### Suggested branch naming
 
 ```
-team2/red-black-tree
+team4/red-black-tree
 team3/dijkstra
 team5/dp-scheduling
 ```

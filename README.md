@@ -36,7 +36,7 @@ We're using **Maven**, not Gradle or plain `javac`, because:
 ```bash
 # Clone and build
 git clone <repo-url>
-cd hospital-dsa-project
+cd mart-Hospital-Operations-Optimizer_TEAM-NEXUS
 mvn compile              # compiles everything
 
 # Run all unit tests (this is where your 40+ tests live)
@@ -44,7 +44,7 @@ mvn test
 
 # Package a runnable jar (bundles all dependencies)
 mvn package
-java -jar target/hospital-dsa-project.jar
+java -jar target/Smart-Hospital-Operations-Optimizer_TEAM-NEXUS.jar
 
 # Run without packaging, while developing
 mvn compile exec:java -Dexec.mainClass="com.hospital.app.Main"
@@ -68,7 +68,8 @@ Mapped directly onto the 5 team assignments so everyone works in their own
 lane with minimal merge conflicts.
 
 ```
-hospital-dsa-project/
+
+Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
 ├── pom.xml
 ├── README.md
 ├── .gitignore

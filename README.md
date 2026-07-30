@@ -21,7 +21,6 @@ Greater Accra referral network).
 
 We're using **Maven**, not Gradle or plain `javac`, because:
 
-- It's what most of the team already has from coursework — zero learning curve
 - One `pom.xml` gives every team the same dependency versions (JUnit 5, JDBC driver) — no "works on my machine"
 - `mvn test` / `mvn package` work identically on Windows, Mac, and any CI we bolt on later
 - Standard folder layout (`src/main/java`, `src/test/java`) is exactly what's scaffolded below — nobody has to configure anything

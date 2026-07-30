@@ -75,54 +75,54 @@ Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
 ├── .gitignore
 │
 ├── docs/
-│   ├── report/            # technical report drafts (docx/pdf)
-│   ├── trace-tables/       # the 6 required trace tables go here
-│   └── performance/        # CSV results + graphs from the efficiency study
+│ ├── report/ # technical report drafts (docx/pdf)
+│ ├── trace-tables/ # the 6 required trace tables go here
+│ └── performance/ # CSV results + graphs from the efficiency study
 │
 └── src/
-    ├── main/
-    │   ├── java/com/hospital/
-    │   │   ├── app/                    # Main.java — startup/wiring, no team-specific logic
-    │   │   │
-    │   │   ├── model/                  # Shared domain classes: Patient, Ward, Staff,
-    │   │   │                           #   Admission, Ambulance, Bed — everyone reads this,
-    │   │   │                           #   only edit with agreement from the team
-    │   │   │
-    │   │   ├── db/                     # TEAM 1 — Database & Integration
-    │   │   │                           #   connection mgmt, DAOs, CSV import/export,
-    │   │   │                           #   validation rules, audit_events writer
-    │   │   │
-    │   │   ├── structures/
-    │   │   │   ├── core/                # TEAM 4 — Core Data Structures
-    │   │   │   │                       #   DynamicArray, LinkedList, Stack, Queue,
-    │   │   │   │                       #   CircularQueue, Deque
-    │   │   │   │
-    │   │   │   └── indexing/            # TEAM 2 — Trees & Indexing
-    │   │   │                           #   Heap/PriorityQueue, BST, RedBlackTree,
-    │   │   │                           #   BTree, HashTable, MySet/MyMap, DisjointSet
-    │   │   │
-    │   │   ├── graph/                   # TEAM 3 — Graph Algorithms
-    │   │   │                           #   Graph (adjacency list + matrix), BFS, DFS,
-    │   │   │                           #   Dijkstra, Prim, Kruskal
-    │   │   │
-    │   │   ├── algorithms/
-    │   │   │   ├── search/              # TEAM 5 — linear search, binary search
-    │   │   │   ├── sort/                # TEAM 5 — selection, insertion, merge, quicksort
-    │   │   │   └── optimization/        # TEAM 5 — greedy allocation, DP scheduling
-    │   │   │
-    │   │   └── util/                    # Shared helpers (timers for benchmarking, etc.)
-    │   │
-    │   └── resources/
-    │       ├── db/schema.sql            # TEAM 1 — table definitions
-    │       └── data/                    # TEAM 1 — seed CSVs (locations, roads, requests...)
-    │
-    └── test/
-        └── java/com/hospital/           # Mirrors src/main structure 1:1.
-            ├── db/                      #   Put YOUR unit tests in YOUR package.
-            ├── structures/core/
-            ├── structures/indexing/
-            ├── graph/
-            └── algorithms/{search,sort,optimization}/
+├── main/
+│ ├── java/com/hospital/
+│ │ ├── app/ # Main.java — startup/wiring, no team-specific logic
+│ │ │
+│ │ ├── model/ # Shared domain classes: Patient, Ward, Staff,
+│ │ │ # Admission, Ambulance, Bed — everyone reads this,
+│ │ │ # only edit with agreement from the team
+│ │ │
+│ │ ├── db/ # TEAM 1 — Database & Integration
+│ │ │ # connection mgmt, DAOs, CSV import/export,
+│ │ │ # validation rules, audit_events writer
+│ │ │
+│ │ ├── structures/
+│ │ │ ├── core/ # TEAM 4 — Core Data Structures
+│ │ │ │ # DynamicArray, LinkedList, Stack, Queue,
+│ │ │ │ # CircularQueue, Deque
+│ │ │ │
+│ │ │ └── indexing/ # TEAM 2 — Trees & Indexing
+│ │ │ # Heap/PriorityQueue, BST, RedBlackTree,
+│ │ │ # BTree, HashTable, MySet/MyMap, DisjointSet
+│ │ │
+│ │ ├── graph/ # TEAM 3 — Graph Algorithms
+│ │ │ # Graph (adjacency list + matrix), BFS, DFS,
+│ │ │ # Dijkstra, Prim, Kruskal
+│ │ │
+│ │ ├── algorithms/
+│ │ │ ├── search/ # TEAM 5 — linear search, binary search
+│ │ │ ├── sort/ # TEAM 5 — selection, insertion, merge, quicksort
+│ │ │ └── optimization/ # TEAM 5 — greedy allocation, DP scheduling
+│ │ │
+│ │ └── util/ # Shared helpers (timers for benchmarking, etc.)
+│ │
+│ └── resources/
+│ ├── db/schema.sql # TEAM 1 — table definitions
+│ └── data/ # TEAM 1 — seed CSVs (locations, roads, requests...)
+│
+└── test/
+└── java/com/hospital/ # Mirrors src/main structure 1:1.
+├── db/ # Put YOUR unit tests in YOUR package.
+├── structures/core/
+├── structures/indexing/
+├── graph/
+└── algorithms/{search,sort,optimization}/
 ```
 
 ### Rules of the road

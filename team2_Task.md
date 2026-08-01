@@ -48,6 +48,18 @@
   - `clear()`
   - `toString()`
   - `resize(int newCapacity)`
+
+- Linked Deque Implemented supporting the following methods/operations:
+  - `addFirst(T element)`
+  - `addLast(T element)`
+  - `removeFirst()`
+  - `removeLast()`
+  - `peekFirst()`
+  - `peekLast()`
+  - `isEmpty()`
+  - `size()`
+  - `clear()`
+  - `toString()`
 ---
 
 

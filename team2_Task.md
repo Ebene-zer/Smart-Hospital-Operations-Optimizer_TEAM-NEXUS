@@ -37,6 +37,17 @@
   - `clear()`
   - `toString()`
   - `resize(int newCapacity)`
+
+- Array-based Circular Queue Implemented supporting the following methods/operations:
+  - `enqueue(T element)`
+  - `dequeue()`
+  - `peek()`
+  - `isEmpty()`
+  - `isFull()`
+  - `size()`
+  - `clear()`
+  - `toString()`
+  - `resize(int newCapacity)`
 ---
 
 

@@ -35,3 +35,7 @@ Thumbs.db
 *.sqlite
 *.sqlite3
 *.log
+
+
+#Ignore personal note
+ZpersonalNotes.md

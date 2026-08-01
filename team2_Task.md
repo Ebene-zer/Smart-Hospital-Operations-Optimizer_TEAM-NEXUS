@@ -25,6 +25,21 @@
 
 ---
 
+#### Eben's Progress:
+
+- Array-based Queue Implemented supporting the following methods/operations:
+  - `enqueue(T element)`
+  - `dequeue()`
+  - `peek()`
+  - `isEmpty()`
+  - `isFull()`
+  - `size()`
+  - `clear()`
+  - `toString()`
+  - `resize(int newCapacity)`
+---
+
+
 Notice: Each member should update this document with their progress and any challenges they encounter accordingly. Regular check-ins will be scheduled to ensure that everyone is on track and to address any issues promptly.
 
 

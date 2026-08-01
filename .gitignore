@@ -36,6 +36,9 @@ Thumbs.db
 *.sqlite3
 *.log
 
+# Build artifacts
+dependency-reduced-pom.xml
+
 
 #Ignore personal note
 ZpersonalNotes.md

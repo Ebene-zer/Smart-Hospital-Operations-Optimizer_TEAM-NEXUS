@@ -25,6 +25,44 @@
 
 ---
 
+#### Eben's Progress:
+
+- Array-based Queue Implemented supporting the following methods/operations:
+  - `enqueue(T element)`
+  - `dequeue()`
+  - `peek()`
+  - `isEmpty()`
+  - `isFull()`
+  - `size()`
+  - `clear()`
+  - `toString()`
+  - `resize(int newCapacity)`
+
+- Array-based Circular Queue Implemented supporting the following methods/operations:
+  - `enqueue(T element)`
+  - `dequeue()`
+  - `peek()`
+  - `isEmpty()`
+  - `isFull()`
+  - `size()`
+  - `clear()`
+  - `toString()`
+  - `resize(int newCapacity)`
+
+- Linked Deque Implemented supporting the following methods/operations:
+  - `addFirst(T element)`
+  - `addLast(T element)`
+  - `removeFirst()`
+  - `removeLast()`
+  - `peekFirst()`
+  - `peekLast()`
+  - `isEmpty()`
+  - `size()`
+  - `clear()`
+  - `toString()`
+---
+
+
 Notice: Each member should update this document with their progress and any challenges they encounter accordingly. Regular check-ins will be scheduled to ensure that everyone is on track and to address any issues promptly.
 
 

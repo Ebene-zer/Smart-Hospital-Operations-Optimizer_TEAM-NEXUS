@@ -1,0 +1,56 @@
+locationId,name,area,type,latitude,longitude
+L001,Accident and Emergency Unit,Korle-Bu,EMERGENCY,5.5364,−0.2279
+L002,Male Medical Ward,Korle-Bu,WARD,5.5366,−0.2281
+L003,Female Medical Ward,Korle-Bu,WARD,5.5368,−0.2280
+L004,Paediatric Ward A,Korle-Bu,WARD,5.5370,−0.2278
+L005,Paediatric Ward B,Korle-Bu,WARD,5.5371,−0.2277
+L006,Surgical Ward 1,Korle-Bu,WARD,5.5362,−0.2283
+L007,Surgical Ward 2,Korle-Bu,WARD,5.5361,−0.2284
+L008,Obstetrics Ward,Korle-Bu,WARD,5.5373,−0.2276
+L009,Gynaecology Ward,Korle-Bu,WARD,5.5374,−0.2275
+L010,Neonatal Intensive Care Unit,Korle-Bu,ICU,5.5375,−0.2274
+L011,Adult ICU,Korle-Bu,ICU,5.5360,−0.2285
+L012,Cardiothoracic ICU,Korle-Bu,ICU,5.5359,−0.2286
+L013,Neurology Ward,Korle-Bu,WARD,5.5376,−0.2273
+L014,Orthopaedic Ward,Korle-Bu,WARD,5.5377,−0.2272
+L015,Burns Unit,Korle-Bu,WARD,5.5358,−0.2287
+L016,Oncology Ward,Korle-Bu,WARD,5.5378,−0.2271
+L017,Renal Unit,Korle-Bu,WARD,5.5357,−0.2288
+L018,Urology Ward,Korle-Bu,WARD,5.5379,−0.2270
+L019,Ear Nose Throat Ward,Korle-Bu,WARD,5.5356,−0.2289
+L020,Ophthalmology Ward,Korle-Bu,WARD,5.5380,−0.2269
+L021,Dermatology Ward,Korle-Bu,WARD,5.5355,−0.2290
+L022,Psychiatry Ward,Korle-Bu,WARD,5.5381,−0.2268
+L023,Physiotherapy Department,Korle-Bu,DEPARTMENT,5.5354,−0.2291
+L024,Radiology Department,Korle-Bu,DEPARTMENT,5.5353,−0.2292
+L025,Laboratory Services,Korle-Bu,DEPARTMENT,5.5382,−0.2267
+L026,Blood Bank,Korle-Bu,DEPARTMENT,5.5352,−0.2293
+L027,Pharmacy Main,Korle-Bu,PHARMACY,5.5383,−0.2266
+L028,Pharmacy Annex,Korle-Bu,PHARMACY,5.5351,−0.2294
+L029,Operating Theatre 1,Korle-Bu,THEATRE,5.5384,−0.2265
+L030,Operating Theatre 2,Korle-Bu,THEATRE,5.5350,−0.2295
+L031,Operating Theatre 3,Korle-Bu,THEATRE,5.5385,−0.2264
+L032,Outpatient Department,Korle-Bu,OUTPATIENT,5.5349,−0.2296
+L033,Specialist Outpatient Clinic,Korle-Bu,OUTPATIENT,5.5386,−0.2263
+L034,Dental Unit,Korle-Bu,DEPARTMENT,5.5348,−0.2297
+L035,Nutrition and Dietetics,Korle-Bu,DEPARTMENT,5.5387,−0.2262
+L036,Medical Records,Korle-Bu,ADMIN,5.5347,−0.2298
+L037,Administration Block,Korle-Bu,ADMIN,5.5388,−0.2261
+L038,Hospital Chapel,Korle-Bu,FACILITY,5.5346,−0.2299
+L039,Mortuary,Korle-Bu,FACILITY,5.5389,−0.2260
+L040,Ambulance Bay,Korle-Bu,FACILITY,5.5345,−0.2300
+L041,Main Gate,Korle-Bu,ENTRANCE,5.5344,−0.2301
+L042,Staff Accommodation Block A,Korle-Bu,FACILITY,5.5390,−0.2259
+L043,Staff Accommodation Block B,Korle-Bu,FACILITY,5.5343,−0.2302
+L044,Canteen,Korle-Bu,FACILITY,5.5391,−0.2258
+L045,Children Emergency Unit,Korle-Bu,EMERGENCY,5.5342,−0.2303
+L046,Ridge Hospital,Ridge Accra,REFERRAL,5.5600,−0.2050
+L047,La General Hospital,La Accra,REFERRAL,5.5500,−0.1800
+L048,37 Military Hospital,Cantonments,REFERRAL,5.5700,−0.1900
+L049,Achimota Hospital,Achimota,REFERRAL,5.6100,−0.2300
+L050,Tema General Hospital,Tema,REFERRAL,5.6700,−0.0100
+L051,Korle-Bu Cardiothoracic Centre,Korle-Bu,DEPARTMENT,5.5363,−0.2278
+L052,National Reconstructive Plastic Surgery Centre,Korle-Bu,DEPARTMENT,5.5365,−0.2282
+L053,Korle-Bu School of Nursing,Korle-Bu,FACILITY,5.5392,−0.2257
+L054,Lister Hospital,Osu Accra,REFERRAL,5.5550,−0.1750
+L055,Trust Hospital,Osu Accra,REFERRAL,5.5520,−0.1780

@@ -99,7 +99,7 @@ Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
 │ │ │ │
 │ │ │ └── indexing/ # TEAM 4 — Trees & Indexing
 │ │ │ # Heap/PriorityQueue, BST, RedBlackTree,
-│ │ │ # BTree, HashTable, MySet/MyMap, DisjointSet
+│ │ │ # BTree, HashTable, CustomSet/CustomMap, DisjointSet
 │ │ │
 │ │ ├── graph/ # TEAM 3 — Graph Algorithms
 │ │ │ # Graph (adjacency list + matrix), BFS, DFS,

@@ -151,3 +151,11 @@ team5/dp-scheduling
 
 Open a PR into `main` per structure/algorithm so trace tables and tests land
 alongside the code that produced them.
+
+---
+
+## 3. Team 5 — Searching, Sorting and Optimisation
+
+Team 5's code is under `com.hospital.algorithms`. `PatientAdmission` is the shared input record. `AdmissionSearch` implements linear and validated binary search by patient ID; binary search rejects unsorted input. `AdmissionSort` provides selection, insertion, merge and quicksort over admission time, urgency, or age. `GreedyResourceAllocator` assigns finite bed/ventilator units by urgency, and `SurgeryScheduler` uses tabulation to select and reconstruct the highest-benefit surgery schedule within caller-supplied regular and overtime theatre hours.
+
+The capacity and overtime arguments are deliberately explicit: the team can supply the member-index-derived values required by the brief without hard-coding unavailable index numbers. Correctness traces and complexity analysis are in `docs/trace-tables/Team5_SearchSort_Trace.md` and `docs/trace-tables/Team5_Optimisation_Trace.md`.

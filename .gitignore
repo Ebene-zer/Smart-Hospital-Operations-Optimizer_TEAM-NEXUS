@@ -42,3 +42,5 @@ dependency-reduced-pom.xml
 
 #Ignore personal note
 ZpersonalNotes.md
+
+.TEAM3_GRAPH_CONTEXT.md/

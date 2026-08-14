@@ -14,13 +14,13 @@ public class LocationDAO {
     public void insert(Location obj) throws SQLException, ValidationException {
         validateRequired(obj);
         if (findById(obj.getLocationId()) != null) {
-            throw new ValidationException("Duplicate location_id: " + obj.getLocationId());
+            throw new ValidationException("Duplicate locationId: " + obj.getLocationId());
         }
 
-        String sql = "INSERT INTO locations (location_id, name, area, type, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO locations (locationId, name, area, type, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, obj.getLocationId());
+            statement.setString(1, obj.getLocationId());
             statement.setString(2, obj.getName());
             statement.setString(3, obj.getArea());
             statement.setString(4, obj.getType());
@@ -30,11 +30,11 @@ public class LocationDAO {
         }
     }
 
-    public Location findById(int id) throws SQLException {
-        String sql = "SELECT location_id, name, area, type, latitude, longitude FROM locations WHERE location_id = ?";
+    public Location findById(String id) throws SQLException {
+        String sql = "SELECT locationId, name, area, type, latitude, longitude FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return mapRow(rs);
@@ -46,7 +46,7 @@ public class LocationDAO {
 
     public List<Location> findAll() throws SQLException {
         List<Location> locations = new ArrayList<>();
-        String sql = "SELECT location_id, name, area, type, latitude, longitude FROM locations ORDER BY location_id";
+        String sql = "SELECT locationId, name, area, type, latitude, longitude FROM locations ORDER BY locationId";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery()) {
@@ -59,7 +59,7 @@ public class LocationDAO {
 
     public void update(Location obj) throws SQLException, ValidationException {
         validateRequired(obj);
-        String sql = "UPDATE locations SET name = ?, area = ?, type = ?, latitude = ?, longitude = ? WHERE location_id = ?";
+        String sql = "UPDATE locations SET name = ?, area = ?, type = ?, latitude = ?, longitude = ? WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getName());
@@ -67,16 +67,16 @@ public class LocationDAO {
             statement.setString(3, obj.getType());
             statement.setDouble(4, obj.getLatitude());
             statement.setDouble(5, obj.getLongitude());
-            statement.setInt(6, obj.getLocationId());
+            statement.setString(6, obj.getLocationId());
             statement.executeUpdate();
         }
     }
 
-    public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM locations WHERE location_id = ?";
+    public void delete(String id) throws SQLException {
+        String sql = "DELETE FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             statement.executeUpdate();
         }
     }
@@ -96,7 +96,7 @@ public class LocationDAO {
 
     private Location mapRow(ResultSet rs) throws SQLException {
         return new Location(
-                rs.getInt("location_id"),
+                rs.getString("locationId"),
                 rs.getString("name"),
                 rs.getString("area"),
                 rs.getString("type"),

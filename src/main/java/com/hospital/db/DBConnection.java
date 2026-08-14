@@ -37,6 +37,7 @@ public final class DBConnection {
         synchronized (LOCK) {
             if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(JDBC_URL);
+                enableForeignKeys(connection);
             }
             return connection;
         }
@@ -52,6 +53,9 @@ public final class DBConnection {
                 connection.close();
             }
             connection = newConnection;
+            if (connection != null && !connection.isClosed()) {
+                enableForeignKeys(connection);
+            }
         }
     }
 
@@ -107,6 +111,12 @@ public final class DBConnection {
         }
 
         return null;
+    }
+
+    private static void enableForeignKeys(Connection conn) throws SQLException {
+        try (Statement statement = conn.createStatement()) {
+            statement.execute("PRAGMA foreign_keys = ON");
+        }
     }
 
     /**

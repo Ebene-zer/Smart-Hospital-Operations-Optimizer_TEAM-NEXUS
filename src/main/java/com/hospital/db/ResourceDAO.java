@@ -14,27 +14,27 @@ public class ResourceDAO {
     public void insert(Resource obj) throws SQLException, ValidationException {
         validateRequired(obj);
         if (findById(obj.getResourceId()) != null) {
-            throw new ValidationException("Duplicate resource_id: " + obj.getResourceId());
+            throw new ValidationException("Duplicate resourceId: " + obj.getResourceId());
         }
-        ensureLocationExists(obj.getHomeLocationId(), "home_location_id");
+        ensureLocationExists(obj.getHomeLocationId(), "homeLocation");
 
-        String sql = "INSERT INTO resources (resource_id, type, home_location_id, capacity, availability_status) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO resources (resourceId, type, homeLocation, capacity, availabilityStatus) VALUES (?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, obj.getResourceId());
+            statement.setString(1, obj.getResourceId());
             statement.setString(2, obj.getType());
-            statement.setObject(3, obj.getHomeLocationId());
+            statement.setString(3, obj.getHomeLocationId());
             statement.setInt(4, obj.getCapacity());
             statement.setString(5, obj.getAvailabilityStatus());
             statement.executeUpdate();
         }
     }
 
-    public Resource findById(int id) throws SQLException {
-        String sql = "SELECT resource_id, type, home_location_id, capacity, availability_status FROM resources WHERE resource_id = ?";
+    public Resource findById(String id) throws SQLException {
+        String sql = "SELECT resourceId, type, homeLocation, capacity, availabilityStatus FROM resources WHERE resourceId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return mapRow(rs);
@@ -46,7 +46,7 @@ public class ResourceDAO {
 
     public List<Resource> findAll() throws SQLException {
         List<Resource> resources = new ArrayList<>();
-        String sql = "SELECT resource_id, type, home_location_id, capacity, availability_status FROM resources ORDER BY resource_id";
+        String sql = "SELECT resourceId, type, homeLocation, capacity, availabilityStatus FROM resources ORDER BY resourceId";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery()) {
@@ -59,24 +59,24 @@ public class ResourceDAO {
 
     public void update(Resource obj) throws SQLException, ValidationException {
         validateRequired(obj);
-        ensureLocationExists(obj.getHomeLocationId(), "home_location_id");
-        String sql = "UPDATE resources SET type = ?, home_location_id = ?, capacity = ?, availability_status = ? WHERE resource_id = ?";
+        ensureLocationExists(obj.getHomeLocationId(), "homeLocation");
+        String sql = "UPDATE resources SET type = ?, homeLocation = ?, capacity = ?, availabilityStatus = ? WHERE resourceId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getType());
-            statement.setObject(2, obj.getHomeLocationId());
+            statement.setString(2, obj.getHomeLocationId());
             statement.setInt(3, obj.getCapacity());
             statement.setString(4, obj.getAvailabilityStatus());
-            statement.setInt(5, obj.getResourceId());
+            statement.setString(5, obj.getResourceId());
             statement.executeUpdate();
         }
     }
 
-    public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM resources WHERE resource_id = ?";
+    public void delete(String id) throws SQLException {
+        String sql = "DELETE FROM resources WHERE resourceId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             statement.executeUpdate();
         }
     }
@@ -86,21 +86,21 @@ public class ResourceDAO {
             throw new ValidationException("Resource cannot be null");
         }
         if (isBlank(obj.getType()) || isBlank(obj.getAvailabilityStatus())) {
-            throw new ValidationException("Type and availability_status are required");
+            throw new ValidationException("Type and availabilityStatus are required");
         }
         if (obj.getCapacity() == null) {
             throw new ValidationException("Capacity is required");
         }
     }
 
-    private void ensureLocationExists(Integer locationId, String columnName) throws SQLException, ValidationException {
-        if (locationId == null) {
+    private void ensureLocationExists(String locationId, String columnName) throws SQLException, ValidationException {
+        if (isBlank(locationId)) {
             throw new ValidationException(columnName + " is required");
         }
-        String sql = "SELECT 1 FROM locations WHERE location_id = ?";
+        String sql = "SELECT 1 FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, locationId);
+            statement.setString(1, locationId);
             try (ResultSet rs = statement.executeQuery()) {
                 if (!rs.next()) {
                     throw new ValidationException(
@@ -116,10 +116,10 @@ public class ResourceDAO {
 
     private Resource mapRow(ResultSet rs) throws SQLException {
         return new Resource(
-                rs.getInt("resource_id"),
+                rs.getString("resourceId"),
                 rs.getString("type"),
-                rs.getObject("home_location_id") == null ? null : rs.getInt("home_location_id"),
+                rs.getString("homeLocation"),
                 rs.getObject("capacity") == null ? null : rs.getInt("capacity"),
-                rs.getString("availability_status"));
+                rs.getString("availabilityStatus"));
     }
 }

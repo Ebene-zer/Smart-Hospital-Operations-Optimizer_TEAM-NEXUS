@@ -3,14 +3,14 @@ package com.hospital.model;
 import java.util.Objects;
 
 public class Road {
-    private final int roadId;
-    private final int fromLocationId;
-    private final int toLocationId;
+    private final String roadId;
+    private final String fromLocationId;
+    private final String toLocationId;
     private final double distanceKm;
     private final double travelTimeMin;
     private final double roadConditionWeight;
 
-    public Road(int roadId, int fromLocationId, int toLocationId, double distanceKm, double travelTimeMin,
+    public Road(String roadId, String fromLocationId, String toLocationId, double distanceKm, double travelTimeMin,
             double roadConditionWeight) {
         this.roadId = roadId;
         this.fromLocationId = fromLocationId;
@@ -20,15 +20,15 @@ public class Road {
         this.roadConditionWeight = roadConditionWeight;
     }
 
-    public int getRoadId() {
+    public String getRoadId() {
         return roadId;
     }
 
-    public int getFromLocationId() {
+    public String getFromLocationId() {
         return fromLocationId;
     }
 
-    public int getToLocationId() {
+    public String getToLocationId() {
         return toLocationId;
     }
 
@@ -62,7 +62,7 @@ public class Road {
             return true;
         if (!(o instanceof Road road))
             return false;
-        return roadId == road.roadId;
+        return Objects.equals(roadId, road.roadId);
     }
 
     @Override

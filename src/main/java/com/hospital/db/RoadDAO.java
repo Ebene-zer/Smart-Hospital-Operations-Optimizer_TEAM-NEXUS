@@ -14,17 +14,17 @@ public class RoadDAO {
     public void insert(Road obj) throws SQLException, ValidationException {
         validateRequired(obj);
         if (findById(obj.getRoadId()) != null) {
-            throw new ValidationException("Duplicate road_id: " + obj.getRoadId());
+            throw new ValidationException("Duplicate roadId: " + obj.getRoadId());
         }
-        ensureLocationExists(obj.getFromLocationId(), "from_location_id");
-        ensureLocationExists(obj.getToLocationId(), "to_location_id");
+        ensureLocationExists(obj.getFromLocationId(), "fromLocationId");
+        ensureLocationExists(obj.getToLocationId(), "toLocationId");
 
-        String sql = "INSERT INTO roads (road_id, from_location_id, to_location_id, distance_km, travel_time_min, road_condition_weight) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO roads (roadId, fromLocationId, toLocationId, distance, travelTime, roadConditionWeight) VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, obj.getRoadId());
-            statement.setInt(2, obj.getFromLocationId());
-            statement.setInt(3, obj.getToLocationId());
+            statement.setString(1, obj.getRoadId());
+            statement.setString(2, obj.getFromLocationId());
+            statement.setString(3, obj.getToLocationId());
             statement.setDouble(4, obj.getDistanceKm());
             statement.setDouble(5, obj.getTravelTimeMin());
             statement.setDouble(6, obj.getRoadConditionWeight());
@@ -32,11 +32,11 @@ public class RoadDAO {
         }
     }
 
-    public Road findById(int id) throws SQLException {
-        String sql = "SELECT road_id, from_location_id, to_location_id, distance_km, travel_time_min, road_condition_weight FROM roads WHERE road_id = ?";
+    public Road findById(String id) throws SQLException {
+        String sql = "SELECT roadId, fromLocationId, toLocationId, distance, travelTime, roadConditionWeight FROM roads WHERE roadId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return mapRow(rs);
@@ -48,7 +48,7 @@ public class RoadDAO {
 
     public List<Road> findAll() throws SQLException {
         List<Road> roads = new ArrayList<>();
-        String sql = "SELECT road_id, from_location_id, to_location_id, distance_km, travel_time_min, road_condition_weight FROM roads ORDER BY road_id";
+        String sql = "SELECT roadId, fromLocationId, toLocationId, distance, travelTime, roadConditionWeight FROM roads ORDER BY roadId";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery()) {
@@ -61,26 +61,26 @@ public class RoadDAO {
 
     public void update(Road obj) throws SQLException, ValidationException {
         validateRequired(obj);
-        ensureLocationExists(obj.getFromLocationId(), "from_location_id");
-        ensureLocationExists(obj.getToLocationId(), "to_location_id");
-        String sql = "UPDATE roads SET from_location_id = ?, to_location_id = ?, distance_km = ?, travel_time_min = ?, road_condition_weight = ? WHERE road_id = ?";
+        ensureLocationExists(obj.getFromLocationId(), "fromLocationId");
+        ensureLocationExists(obj.getToLocationId(), "toLocationId");
+        String sql = "UPDATE roads SET fromLocationId = ?, toLocationId = ?, distance = ?, travelTime = ?, roadConditionWeight = ? WHERE roadId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, obj.getFromLocationId());
-            statement.setInt(2, obj.getToLocationId());
+            statement.setString(1, obj.getFromLocationId());
+            statement.setString(2, obj.getToLocationId());
             statement.setDouble(3, obj.getDistanceKm());
             statement.setDouble(4, obj.getTravelTimeMin());
             statement.setDouble(5, obj.getRoadConditionWeight());
-            statement.setInt(6, obj.getRoadId());
+            statement.setString(6, obj.getRoadId());
             statement.executeUpdate();
         }
     }
 
-    public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM roads WHERE road_id = ?";
+    public void delete(String id) throws SQLException {
+        String sql = "DELETE FROM roads WHERE roadId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             statement.executeUpdate();
         }
     }
@@ -89,16 +89,16 @@ public class RoadDAO {
         if (obj == null) {
             throw new ValidationException("Road cannot be null");
         }
-        if (obj.getFromLocationId() <= 0 || obj.getToLocationId() <= 0) {
-            throw new ValidationException("Road foreign keys must be positive integers");
+        if (isBlank(obj.getRoadId()) || isBlank(obj.getFromLocationId()) || isBlank(obj.getToLocationId())) {
+            throw new ValidationException("Road IDs are required");
         }
     }
 
-    private void ensureLocationExists(int locationId, String columnName) throws SQLException, ValidationException {
-        String sql = "SELECT 1 FROM locations WHERE location_id = ?";
+    private void ensureLocationExists(String locationId, String columnName) throws SQLException, ValidationException {
+        String sql = "SELECT 1 FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, locationId);
+            statement.setString(1, locationId);
             try (ResultSet rs = statement.executeQuery()) {
                 if (!rs.next()) {
                     throw new ValidationException(
@@ -108,13 +108,17 @@ public class RoadDAO {
         }
     }
 
+    private boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
     private Road mapRow(ResultSet rs) throws SQLException {
         return new Road(
-                rs.getInt("road_id"),
-                rs.getInt("from_location_id"),
-                rs.getInt("to_location_id"),
-                rs.getDouble("distance_km"),
-                rs.getDouble("travel_time_min"),
-                rs.getDouble("road_condition_weight"));
+                rs.getString("roadId"),
+                rs.getString("fromLocationId"),
+                rs.getString("toLocationId"),
+                rs.getDouble("distance"),
+                rs.getDouble("travelTime"),
+                rs.getDouble("roadConditionWeight"));
     }
 }

@@ -3,13 +3,13 @@ package com.hospital.model;
 import java.util.Objects;
 
 public class Resource {
-    private final int resourceId;
+    private final String resourceId;
     private final String type;
-    private final Integer homeLocationId;
+    private final String homeLocationId;
     private final Integer capacity;
     private final String availabilityStatus;
 
-    public Resource(int resourceId, String type, Integer homeLocationId, Integer capacity, String availabilityStatus) {
+    public Resource(String resourceId, String type, String homeLocationId, Integer capacity, String availabilityStatus) {
         this.resourceId = resourceId;
         this.type = type;
         this.homeLocationId = homeLocationId;
@@ -17,7 +17,7 @@ public class Resource {
         this.availabilityStatus = availabilityStatus;
     }
 
-    public int getResourceId() {
+    public String getResourceId() {
         return resourceId;
     }
 
@@ -25,7 +25,7 @@ public class Resource {
         return type;
     }
 
-    public Integer getHomeLocationId() {
+    public String getHomeLocationId() {
         return homeLocationId;
     }
 
@@ -54,7 +54,7 @@ public class Resource {
             return true;
         if (!(o instanceof Resource resource))
             return false;
-        return resourceId == resource.resourceId;
+        return Objects.equals(resourceId, resource.resourceId);
     }
 
     @Override

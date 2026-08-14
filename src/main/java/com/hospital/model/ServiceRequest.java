@@ -3,16 +3,16 @@ package com.hospital.model;
 import java.util.Objects;
 
 public class ServiceRequest {
-    private final int requestId;
-    private final Integer sourceId;
-    private final Integer destinationId;
+    private final String requestId;
+    private final String sourceId;
+    private final String destinationId;
     private final String category;
-    private final Integer urgency;
+    private final String urgency;
     private final String timeSubmitted;
     private final String deadline;
     private final String status;
 
-    public ServiceRequest(int requestId, Integer sourceId, Integer destinationId, String category, Integer urgency,
+    public ServiceRequest(String requestId, String sourceId, String destinationId, String category, String urgency,
             String timeSubmitted, String deadline, String status) {
         this.requestId = requestId;
         this.sourceId = sourceId;
@@ -24,15 +24,15 @@ public class ServiceRequest {
         this.status = status;
     }
 
-    public int getRequestId() {
+    public String getRequestId() {
         return requestId;
     }
 
-    public Integer getSourceId() {
+    public String getSourceId() {
         return sourceId;
     }
 
-    public Integer getDestinationId() {
+    public String getDestinationId() {
         return destinationId;
     }
 
@@ -40,7 +40,7 @@ public class ServiceRequest {
         return category;
     }
 
-    public Integer getUrgency() {
+    public String getUrgency() {
         return urgency;
     }
 
@@ -76,7 +76,7 @@ public class ServiceRequest {
             return true;
         if (!(o instanceof ServiceRequest that))
             return false;
-        return requestId == that.requestId;
+        return Objects.equals(requestId, that.requestId);
     }
 
     @Override

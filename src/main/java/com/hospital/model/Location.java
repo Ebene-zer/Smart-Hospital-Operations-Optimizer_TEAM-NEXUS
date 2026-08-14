@@ -3,14 +3,14 @@ package com.hospital.model;
 import java.util.Objects;
 
 public class Location {
-    private final int locationId;
+    private final String locationId;
     private final String name;
     private final String area;
     private final String type;
     private final double latitude;
     private final double longitude;
 
-    public Location(int locationId, String name, String area, String type, double latitude, double longitude) {
+    public Location(String locationId, String name, String area, String type, double latitude, double longitude) {
         this.locationId = locationId;
         this.name = name;
         this.area = area;
@@ -19,7 +19,7 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public int getLocationId() {
+    public String getLocationId() {
         return locationId;
     }
 
@@ -61,7 +61,7 @@ public class Location {
             return true;
         if (!(o instanceof Location location))
             return false;
-        return locationId == location.locationId;
+        return Objects.equals(locationId, location.locationId);
     }
 
     @Override

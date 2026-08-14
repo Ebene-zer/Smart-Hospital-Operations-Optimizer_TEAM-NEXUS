@@ -1,6 +1,6 @@
 -- Team 1: Database & Integration
 CREATE TABLE IF NOT EXISTS locations (
-    location_id     INTEGER PRIMARY KEY,
+    locationId      TEXT PRIMARY KEY,
     name            TEXT NOT NULL,
     area            TEXT,
     type            TEXT,
@@ -9,31 +9,31 @@ CREATE TABLE IF NOT EXISTS locations (
 );
 
 CREATE TABLE IF NOT EXISTS roads (
-    road_id             INTEGER PRIMARY KEY,
-    from_location_id    INTEGER NOT NULL REFERENCES locations(location_id),
-    to_location_id      INTEGER NOT NULL REFERENCES locations(location_id),
-    distance_km         REAL,
-    travel_time_min     REAL,
-    road_condition_weight REAL
+    roadId               TEXT PRIMARY KEY,
+    fromLocationId       TEXT NOT NULL REFERENCES locations(locationId),
+    toLocationId         TEXT NOT NULL REFERENCES locations(locationId),
+    distance             REAL,
+    travelTime           REAL,
+    roadConditionWeight  REAL
 );
 
 CREATE TABLE IF NOT EXISTS service_requests (
-    request_id      INTEGER PRIMARY KEY,
-    source_id       INTEGER REFERENCES locations(location_id),
-    destination_id  INTEGER REFERENCES locations(location_id),
+    requestId       TEXT PRIMARY KEY,
+    source          TEXT REFERENCES locations(locationId),
+    destination     TEXT REFERENCES locations(locationId),
     category        TEXT,
-    urgency         INTEGER,
-    time_submitted  TEXT,
+    urgency         TEXT,
+    timeSubmitted   TEXT,
     deadline        TEXT,
     status          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS resources (
-    resource_id         INTEGER PRIMARY KEY,
+    resourceId          TEXT PRIMARY KEY,
     type                TEXT,
-    home_location_id    INTEGER REFERENCES locations(location_id),
+    homeLocation        TEXT REFERENCES locations(locationId),
     capacity            INTEGER,
-    availability_status TEXT
+    availabilityStatus  TEXT
 );
 
 CREATE TABLE IF NOT EXISTS algorithm_runs (

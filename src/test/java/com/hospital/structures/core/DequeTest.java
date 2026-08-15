@@ -99,4 +99,10 @@ public class DequeTest {
         assertEquals("Deque: [1, 2]", deque.toString());
     }
 
+    @Test
+    void testToStringEmpty() {
+        Deque<Integer> deque = new Deque<>();
+        assertEquals("Deque: []", deque.toString());
+    }
+
 }

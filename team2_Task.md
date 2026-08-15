@@ -69,13 +69,13 @@ Team 2 will integrate the phase 1 data structures into the hospital's operationa
 ### Tasks
 
 | Component               | Data Structure     | Assigned to: |
-| ----------------------- | ------------------ |--------------|
+| ----------------------- |--------------------|--------------|
 | `WardPatientRoster`     | Dynamic Array      | Seyram       |
 | `OutpatientWaitingList` | Singly Linked List | Philipa      |
-| `PharmacyQueue`         | Queue              | Philipa      |
+| `UndoManager`         | Stack              | Philipa      |
 | `NursingShiftManager`   | Circular Queue     | Ebenezer     |
 | `EmergencyIntake`       | Deque              | Ebenezer     |
-| `UndoManager`           | Stack              | Ebenezer     |
+| `PharmacyQueue`          | Queue              | Ebenezer     |
 
 ### Package
 

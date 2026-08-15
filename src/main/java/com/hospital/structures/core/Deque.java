@@ -113,10 +113,13 @@ public class Deque<T> {
         StringBuilder sb = new StringBuilder("Deque: [");
         Node current = front;
         while (current != null) {
-            sb.append(current.data).append(", ");
+            sb.append(current.data);
+            if (current.next != null) {
+                sb.append(", ");
+            }
             current = current.next;
         }
-        sb.delete(sb.length() - 2, sb.length()).append("]");
+        sb.append("]");
         return sb.toString();
     }
 

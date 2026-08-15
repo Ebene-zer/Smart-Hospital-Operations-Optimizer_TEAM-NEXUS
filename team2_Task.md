@@ -62,7 +62,48 @@
   - `toString()`
 ---
 
+# Phase 2: Hospital Operations Integration (Business Logic)
 
+Team 2 will integrate the phase 1 data structures into the hospital's operational/business logic. These classes will **use our custom data structures** rather than Java Collections.
+
+### Tasks
+
+| Component               | Data Structure     | Assigned to: |
+| ----------------------- | ------------------ |--------------|
+| `WardPatientRoster`     | Dynamic Array      | Seyram       |
+| `OutpatientWaitingList` | Singly Linked List | Philipa      |
+| `PharmacyQueue`         | Queue              | Philipa      |
+| `NursingShiftManager`   | Circular Queue     | Ebenezer     |
+| `EmergencyIntake`       | Deque              | Ebenezer     |
+| `UndoManager`           | Stack              | Ebenezer     |
+
+### Package
+
+Work in the hospital-operation classes under:
+
+`com.hospital.operations`
+
+Using generic data structures under:
+
+`com.hospital.structures`
+
+### Requirements
+
+* Use only the custom Team 2 data structures.
+* Integrate with the existing `model` classes where appropriate.
+* Do not use Java Collection classes (`ArrayList`, `LinkedList`, `Queue`, `Deque`, `Stack`, etc.).
+* Keep the data structures generic and reusable; hospital-specific logic belongs in the operation classes.
+* Add unit tests for each operation class.
+* Ensure all existing tests continue to pass with `mvn clean test`.
+
+### Deliverable
+
+Six tested hospital-operation components demonstrating the practical use of Team 2's custom data structures.
+
+
+
+````
 Notice: Each member should update this document with their progress and any challenges they encounter accordingly. Regular check-ins will be scheduled to ensure that everyone is on track and to address any issues promptly.
+````
 
 

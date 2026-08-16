@@ -12,10 +12,23 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * ServiceRequestDAO - Team 1
+ * Handles all database operations for the service_requests table.
+ * Audit events are logged after every insert, update and delete.
+ */
 public class ServiceRequestDAO {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    // AuditEventDAO used to log all data changes
+    private final AuditEventDAO auditEventDAO = new AuditEventDAO();
+
+    /**
+     * Inserts a new service request into the database.
+     * Logs an INSERT audit event on success.
+     */
     public void insert(ServiceRequest obj) throws SQLException, ValidationException {
         validateRequired(obj);
         validateDates(obj);
@@ -25,7 +38,9 @@ public class ServiceRequestDAO {
         ensureLocationExists(obj.getSourceId(), "source");
         ensureLocationExists(obj.getDestinationId(), "destination");
 
-        String sql = "INSERT INTO service_requests (requestId, source, destination, category, urgency, timeSubmitted, deadline, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO service_requests (requestId, source, destination, " +
+                     "category, urgency, timeSubmitted, deadline, status) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getRequestId());
@@ -38,10 +53,19 @@ public class ServiceRequestDAO {
             statement.setString(8, obj.getStatus());
             statement.executeUpdate();
         }
+
+        // log audit event after successful insert
+        auditEventDAO.insert("INSERT", "service_requests", obj.getRequestId(),
+                "system", LocalDateTime.now().toString());
     }
 
+    /**
+     * Finds a service request by its ID.
+     * Returns null if not found.
+     */
     public ServiceRequest findById(String id) throws SQLException {
-        String sql = "SELECT requestId, source, destination, category, urgency, timeSubmitted, deadline, status FROM service_requests WHERE requestId = ?";
+        String sql = "SELECT requestId, source, destination, category, urgency, " +
+                     "timeSubmitted, deadline, status FROM service_requests WHERE requestId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, id);
@@ -54,12 +78,16 @@ public class ServiceRequestDAO {
         return null;
     }
 
+    /**
+     * Returns all service requests ordered by requestId.
+     */
     public List<ServiceRequest> findAll() throws SQLException {
         List<ServiceRequest> requests = new ArrayList<>();
-        String sql = "SELECT requestId, source, destination, category, urgency, timeSubmitted, deadline, status FROM service_requests ORDER BY requestId";
+        String sql = "SELECT requestId, source, destination, category, urgency, " +
+                     "timeSubmitted, deadline, status FROM service_requests ORDER BY requestId";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet rs = statement.executeQuery()) {
+             ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 requests.add(mapRow(rs));
             }
@@ -67,12 +95,18 @@ public class ServiceRequestDAO {
         return requests;
     }
 
+    /**
+     * Updates an existing service request in the database.
+     * Logs an UPDATE audit event on success.
+     */
     public void update(ServiceRequest obj) throws SQLException, ValidationException {
         validateRequired(obj);
         validateDates(obj);
         ensureLocationExists(obj.getSourceId(), "source");
         ensureLocationExists(obj.getDestinationId(), "destination");
-        String sql = "UPDATE service_requests SET source = ?, destination = ?, category = ?, urgency = ?, timeSubmitted = ?, deadline = ?, status = ? WHERE requestId = ?";
+        String sql = "UPDATE service_requests SET source = ?, destination = ?, " +
+                     "category = ?, urgency = ?, timeSubmitted = ?, deadline = ?, " +
+                     "status = ? WHERE requestId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getSourceId());
@@ -85,8 +119,16 @@ public class ServiceRequestDAO {
             statement.setString(8, obj.getRequestId());
             statement.executeUpdate();
         }
+
+        // log audit event after successful update
+        auditEventDAO.insert("UPDATE", "service_requests", obj.getRequestId(),
+                "system", LocalDateTime.now().toString());
     }
 
+    /**
+     * Deletes a service request by ID from the database.
+     * Logs a DELETE audit event on success.
+     */
     public void delete(String id) throws SQLException {
         String sql = "DELETE FROM service_requests WHERE requestId = ?";
         Connection connection = DBConnection.getConnection();
@@ -94,63 +136,16 @@ public class ServiceRequestDAO {
             statement.setString(1, id);
             statement.executeUpdate();
         }
+
+        // log audit event after successful delete
+        auditEventDAO.insert("DELETE", "service_requests", id,
+                "system", LocalDateTime.now().toString());
     }
 
     private void validateRequired(ServiceRequest obj) throws ValidationException {
         if (obj == null) {
             throw new ValidationException("ServiceRequest cannot be null");
         }
-        if (isBlank(obj.getCategory()) || isBlank(obj.getTimeSubmitted()) || isBlank(obj.getDeadline())
-                || isBlank(obj.getStatus())) {
-            throw new ValidationException("Category, timeSubmitted, deadline and status are required");
-        }
-        if (isBlank(obj.getUrgency())) {
-            throw new ValidationException("Urgency is required");
-        }
-    }
-
-    private void validateDates(ServiceRequest obj) throws ValidationException {
-        try {
-            LocalDateTime submitted = LocalDateTime.parse(obj.getTimeSubmitted(), FORMATTER);
-            LocalDateTime deadline = LocalDateTime.parse(obj.getDeadline(), FORMATTER);
-            if (deadline.isBefore(submitted)) {
-                throw new ValidationException("deadline must not be before timeSubmitted");
-            }
-        } catch (DateTimeParseException e) {
-            throw new ValidationException("Invalid date format: " + e.getMessage());
-        }
-    }
-
-    private void ensureLocationExists(String locationId, String columnName) throws SQLException, ValidationException {
-        if (isBlank(locationId)) {
-            throw new ValidationException(columnName + " is required");
-        }
-        String sql = "SELECT 1 FROM locations WHERE locationId = ?";
-        Connection connection = DBConnection.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, locationId);
-            try (ResultSet rs = statement.executeQuery()) {
-                if (!rs.next()) {
-                    throw new ValidationException(
-                            "Foreign key not found in locations for " + columnName + ": " + locationId);
-                }
-            }
-        }
-    }
-
-    private boolean isBlank(String value) {
-        return value == null || value.trim().isEmpty();
-    }
-
-    private ServiceRequest mapRow(ResultSet rs) throws SQLException {
-        return new ServiceRequest(
-                rs.getString("requestId"),
-                rs.getString("source"),
-                rs.getString("destination"),
-                rs.getString("category"),
-                rs.getString("urgency"),
-                rs.getString("timeSubmitted"),
-                rs.getString("deadline"),
-                rs.getString("status"));
-    }
-}
+        if (isBlank(obj.getCategory()) || isBlank(obj.getTimeSubmitted()) ||
+            isBlank(obj.getDeadline()) || isBlank(obj.getStatus())) {
+            throw new ValidationException(

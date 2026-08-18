@@ -5,8 +5,8 @@ import com.hospital.structures.core.Deque;
 public class EmergencyIntake {
     private final Deque<String> intake;
 
-    public EmergencyIntake(Deque<String> intake) {
-        this.intake = intake;
+    public EmergencyIntake(){
+        intake = new Deque<String>();
     }
 
     //Routine walk-ins join the rear
@@ -26,6 +26,9 @@ public class EmergencyIntake {
 
     //View the next patient to be attended
     public String getNextPatient(){
+        if(intake.isEmpty()){
+            return null;
+        }
         return intake.peekFront();
     }
 

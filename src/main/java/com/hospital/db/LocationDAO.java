@@ -6,18 +6,32 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * LocationDAO - Team 1
+ * Handles all database operations for the locations table.
+ * Audit events are logged after every insert, update and delete.
+ */
 public class LocationDAO {
 
+    // AuditEventDAO used to log all data changes
+    private final AuditEventDAO auditEventDAO = new AuditEventDAO();
+
+    /**
+     * Inserts a new location into the database.
+     * Logs an INSERT audit event on success.
+     */
     public void insert(Location obj) throws SQLException, ValidationException {
         validateRequired(obj);
         if (findById(obj.getLocationId()) != null) {
             throw new ValidationException("Duplicate locationId: " + obj.getLocationId());
         }
 
-        String sql = "INSERT INTO locations (locationId, name, area, type, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO locations (locationId, name, area, type, latitude, longitude) " +
+                     "VALUES (?, ?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getLocationId());
@@ -28,10 +42,19 @@ public class LocationDAO {
             statement.setDouble(6, obj.getLongitude());
             statement.executeUpdate();
         }
+
+        // log audit event after successful insert
+        auditEventDAO.insert("INSERT", "locations", obj.getLocationId(),
+                "system", LocalDateTime.now().toString());
     }
 
+    /**
+     * Finds a location by its ID.
+     * Returns null if not found.
+     */
     public Location findById(String id) throws SQLException {
-        String sql = "SELECT locationId, name, area, type, latitude, longitude FROM locations WHERE locationId = ?";
+        String sql = "SELECT locationId, name, area, type, latitude, longitude " +
+                     "FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, id);
@@ -44,12 +67,16 @@ public class LocationDAO {
         return null;
     }
 
+    /**
+     * Returns all locations ordered by locationId.
+     */
     public List<Location> findAll() throws SQLException {
         List<Location> locations = new ArrayList<>();
-        String sql = "SELECT locationId, name, area, type, latitude, longitude FROM locations ORDER BY locationId";
+        String sql = "SELECT locationId, name, area, type, latitude, longitude " +
+                     "FROM locations ORDER BY locationId";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql);
-                ResultSet rs = statement.executeQuery()) {
+             ResultSet rs = statement.executeQuery()) {
             while (rs.next()) {
                 locations.add(mapRow(rs));
             }
@@ -57,9 +84,14 @@ public class LocationDAO {
         return locations;
     }
 
+    /**
+     * Updates an existing location in the database.
+     * Logs an UPDATE audit event on success.
+     */
     public void update(Location obj) throws SQLException, ValidationException {
         validateRequired(obj);
-        String sql = "UPDATE locations SET name = ?, area = ?, type = ?, latitude = ?, longitude = ? WHERE locationId = ?";
+        String sql = "UPDATE locations SET name = ?, area = ?, type = ?, " +
+                     "latitude = ?, longitude = ? WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, obj.getName());
@@ -70,8 +102,16 @@ public class LocationDAO {
             statement.setString(6, obj.getLocationId());
             statement.executeUpdate();
         }
+
+        // log audit event after successful update
+        auditEventDAO.insert("UPDATE", "locations", obj.getLocationId(),
+                "system", LocalDateTime.now().toString());
     }
 
+    /**
+     * Deletes a location by ID from the database.
+     * Logs a DELETE audit event on success.
+     */
     public void delete(String id) throws SQLException {
         String sql = "DELETE FROM locations WHERE locationId = ?";
         Connection connection = DBConnection.getConnection();
@@ -79,8 +119,15 @@ public class LocationDAO {
             statement.setString(1, id);
             statement.executeUpdate();
         }
+
+        // log audit event after successful delete
+        auditEventDAO.insert("DELETE", "locations", id,
+                "system", LocalDateTime.now().toString());
     }
 
+    /**
+     * Validates that required fields are present before insert/update.
+     */
     private void validateRequired(Location obj) throws ValidationException {
         if (obj == null) {
             throw new ValidationException("Location cannot be null");
@@ -94,6 +141,9 @@ public class LocationDAO {
         return value == null || value.trim().isEmpty();
     }
 
+    /**
+     * Maps a ResultSet row to a Location object.
+     */
     private Location mapRow(ResultSet rs) throws SQLException {
         return new Location(
                 rs.getString("locationId"),

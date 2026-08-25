@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HashTableTest {
 
@@ -144,5 +145,10 @@ class HashTableTest {
         assertNotNull(removedEntry);
         assertNull(table.get(6));
         assertNotNull(table.get(1));
+    }
+
+    @Test
+    void invalidCapacity_isRejected() {
+        assertThrows(IllegalArgumentException.class, () -> new HashTable(0));
     }
 }

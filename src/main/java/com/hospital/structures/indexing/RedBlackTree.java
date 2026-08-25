@@ -105,4 +105,17 @@ public class RedBlackTree {
 
         buildInOrderTraversal(current.getRight(), traversal);
     }
+
+    public int height() {
+        return heightRecursive(root);
+    }
+
+    private int heightRecursive(RedBlackNode current) {
+        if (current == null) {
+            return 0;
+        }
+        int left = heightRecursive(current.getLeft());
+        int right = heightRecursive(current.getRight());
+        return 1 + Math.max(left, right);
+    }
 }

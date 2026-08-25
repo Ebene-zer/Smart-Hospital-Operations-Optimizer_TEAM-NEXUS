@@ -10,152 +10,78 @@
 
 ---
 
-
 # Korle-Bu Smart Hospital Operations Optimizer
 
-Joint DSA project — custom data structures, algorithms, and DB integration
-built around a hospital operations dataset (Korle-Bu Teaching Hospital +
-Greater Accra referral network).
+Joint DCIT 204/308 project: custom data structures, algorithms, SQLite integration and empirical analysis around Korle-Bu Teaching Hospital and the Greater Accra referral network.
 
-## 1. Build System — Maven
+This is **not** a UI project. Examiners run a **console menu**. No source edits are required.
 
-We're using **Maven**, not Gradle or plain `javac`, because:
+## Prerequisites
 
-- One `pom.xml` gives every team the same dependency versions (JUnit 5, JDBC driver) — no "works on my machine"
-- `mvn test` / `mvn package` work identically on Windows, Mac, and any CI we bolt on later
-- Standard folder layout (`src/main/java`, `src/test/java`) is exactly what's scaffolded below — nobody has to configure anything
+- JDK 17+ (`java -version`)
+- Maven 3.9+ (`mvn -version`)
 
-### Prerequisites
-
-- JDK 17+ (`java -version` to check)
-- Maven 3.9+ (`mvn -version` to check)
-- Git
-
-### Common commands
+## Run
 
 ```bash
-# Clone and build
-git clone <repo-url>
-cd mart-Hospital-Operations-Optimizer_TEAM-NEXUS
-mvn compile              # compiles everything
-
-# Run all unit tests (this is where your 40+ tests live)
+cd Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main
 mvn test
-
-# Package a runnable jar (bundles all dependencies)
 mvn package
-java -jar target/Smart-Hospital-Operations-Optimizer_TEAM-NEXUS.jar
-
-# Run without packaging, while developing
-mvn compile exec:java -Dexec.mainClass="com.hospital.app.Main"
+java -jar target/hospital-dsa-project.jar
 ```
 
-If `exec:java` complains it's not found, just run `mvn package` and use the jar instead — the exec plugin isn't wired into `pom.xml` yet; add it if your team prefers that workflow.
+While developing:
 
-### Adding a dependency
-
-Only add a dependency if it's NOT one of the assessed data structures/algorithms
-(e.g. it's fine to add a CSV or DB library; it is **not** fine to add a `HashMap`
-or `PriorityQueue` import into assessed code — see Section 8 of the brief).
-Add new dependencies to `pom.xml` under `<dependencies>` and open a PR so the
-whole team pulls the same version.
-
----
-
-## 2. Project Structure
-
-Mapped directly onto the 5 team assignments so everyone works in their own
-lane with minimal merge conflicts.
-
+```bash
+mvn compile exec:java
 ```
 
-Smart-Hospital-Operations-Optimizer_TEAM-NEXUS/
-├── pom.xml
-├── README.md
-├── .gitignore
-│
-├── docs/
-│ ├── report/ # technical report drafts (docx/pdf)
-│ ├── trace-tables/ # the 6 required trace tables go here
-│ └── performance/ # CSV results + graphs from the efficiency study
-│
-└── src/
-├── main/
-│ ├── java/com/hospital/
-│ │ ├── app/ # Main.java — startup/wiring, no team-specific logic
-│ │ │
-│ │ ├── model/ # Shared domain classes: Patient, Ward, Staff,
-│ │ │ # Admission, Ambulance, Bed — everyone reads this,
-│ │ │ # only edit with agreement from the team
-│ │ │
-│ │ ├── db/ # TEAM 1 — Database & Integration
-│ │ │ # connection mgmt, DAOs, CSV import/export,
-│ │ │ # validation rules, audit_events writer
-│ │ │
-│ │ ├── structures/
-│ │ │ ├── core/ # TEAM 2 — Core Data Structures
-│ │ │ │ # DynamicArray, LinkedList, Stack, Queue,
-│ │ │ │ # CircularQueue, Deque
-│ │ │ │
-│ │ │ └── indexing/ # TEAM 4 — Trees & Indexing
-│ │ │ # Heap/PriorityQueue, BST, RedBlackTree,
-│ │ │ # BTree, HashTable, CustomSet/CustomMap, DisjointSet
-│ │ │
-│ │ ├── graph/ # TEAM 3 — Graph Algorithms
-│ │ │ # Graph (adjacency list + matrix), BFS, DFS,
-│ │ │ # Dijkstra, Prim, Kruskal
-│ │ │
-│ │ ├── algorithms/
-│ │ │ ├── search/ # TEAM 5 — linear search, binary search
-│ │ │ ├── sort/ # TEAM 5 — selection, insertion, merge, quicksort
-│ │ │ └── optimization/ # TEAM 5 — greedy allocation, DP scheduling
-│ │ │
-│ │ └── util/ # Shared helpers (timers for benchmarking, etc.)
-│ │
-│ └── resources/
-│ ├── db/schema.sql # TEAM 1 — table definitions
-│ └── data/ # TEAM 1 — seed CSVs (locations, roads, requests...)
-│
-└── test/
-└── java/com/hospital/ # Mirrors src/main structure 1:1.
-├── db/ # Put YOUR unit tests in YOUR package.
-├── structures/core/
-├── structures/indexing/
-├── graph/
-└── algorithms/{search,sort,optimization}/
+Headless modes (no menu):
+
+```bash
+java -jar target/hospital-dsa-project.jar --demo
+java -jar target/hospital-dsa-project.jar --traces
+java -jar target/hospital-dsa-project.jar --experiments
 ```
 
-### Rules of the road
+On first start the program creates `hospital.db`, applies `src/main/resources/db/schema.sql`, and imports the classpath CSVs (55 locations, 105 roads, 310 requests, 40 resources).
 
-- **No built-in collections in assessed code.** Don't `import java.util.HashMap`,
-  `PriorityQueue`, `Stack`, `ArrayDeque`, `TreeMap`, etc. inside `structures/`,
-  `graph/`, or `algorithms/`. Use them freely in `db/` or `app/` if it's just
-  plumbing, not assessed logic.
-- **Work in your own package.** Team 4 doesn't touch `structures/core`, Team 2
-  doesn't touch `structures/indexing`, etc. Cuts merge conflicts to near zero.
-- **`model/` is shared.** If you need a new field on `Patient` or `Ward`, ping
-  the team before changing it — everyone's code depends on it.
-- **One test class per structure/algorithm**, named to match
-  (e.g. `RedBlackTreeTest.java`, `DijkstraTest.java`), living in the mirrored
-  `test/` package.
-- **Commit early, commit often.** Small PRs per structure/algorithm are far
-  easier to review than one giant end-of-week dump.
+## Console menu
 
-### Suggested branch naming
+1. Load / reload SQLite  
+2. View counts and sample records  
+3. Data-structure demos  
+4. Searching and sorting  
+5. Scheduling (FIFO / circular / deque / heap)  
+6. Graph algorithms  
+7. Optimisation (greedy / DP / brute force)  
+8. Indexing engine  
+9. How to run tests  
+10. Performance experiments (CSV + SVG + `algorithm_runs`)  
+11. View saved performance results  
+12. Generate graph traces  
+13. Index-number parameters  
+14. Live write + undo/audit  
+0. Exit
 
-```
-team4/red-black-tree
-team3/dijkstra
-team5/dp-scheduling
-```
+## Index-number parameters
 
-Open a PR into `main` per structure/algorithm so trace tables and tests land
-alongside the code that produced them.
+Documented in [docs/INDEX_NUMBER_PARAMETERS.md](docs/INDEX_NUMBER_PARAMETERS.md): hash capacity **83**, Dijkstra penalty **1.47**, DP theatre hours **7+1**.
 
----
+## Evidence pack
 
-## 3. Team 5 — Searching, Sorting and Optimisation
+| Item | Location |
+|---|---|
+| Technical report | [docs/report/technical-report.md](docs/report/technical-report.md) |
+| Dataset note | [docs/dataset-evidence.md](docs/dataset-evidence.md) |
+| Problem spec (M1) | [docs/M1_problem_specification.md](docs/M1_problem_specification.md) |
+| Proof sketches | [docs/proof-sketches.md](docs/proof-sketches.md) |
+| Traces | [docs/trace-tables/](docs/trace-tables/) |
+| Performance CSV/SVG | [docs/performance/](docs/performance/) |
+| Demo script | [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) |
+| Oral defense | [docs/ORAL_DEFENSE.md](docs/ORAL_DEFENSE.md) |
+| Development log | [docs/DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) |
 
-Team 5's code is under `com.hospital.algorithms`. `PatientAdmission` is the shared input record. `AdmissionSearch` implements linear and validated binary search by patient ID; binary search rejects unsorted input. `AdmissionSort` provides selection, insertion, merge and quicksort over admission time, urgency, or age. `GreedyResourceAllocator` assigns finite bed/ventilator units by urgency, and `SurgeryScheduler` uses tabulation to select and reconstruct the highest-benefit surgery schedule within caller-supplied regular and overtime theatre hours.
+## Rules
 
-The capacity and overtime arguments are deliberately explicit: the team can supply the member-index-derived values required by the brief without hard-coding unavailable index numbers. Correctness traces and complexity analysis are in `docs/trace-tables/Team5_SearchSort_Trace.md` and `docs/trace-tables/Team5_Optimisation_Trace.md`.
+Assessed packages (`structures/`, `graph/`, `algorithms/`) must not use built-in `HashMap`, `TreeMap`, `PriorityQueue`, `java.util.Stack` or `ArrayDeque`. JDBC, file I/O, printing, tests and the console menu may use Java utilities.

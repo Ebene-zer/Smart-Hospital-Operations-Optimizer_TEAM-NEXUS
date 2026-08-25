@@ -1,0 +1,47 @@
+Korle-Bu Smart Hospital Operations Optimizer
+Team parameters (index-derived)
+  HASH_TABLE_CAPACITY = 83  (Ampadu fragment 113)
+  DIJKSTRA_PENALTY    = 1.47  (Nyamedor fragment 447)
+  DP hours            = 7 regular + 1 overtime  (Purity fragment 808)
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting CSV import...
+Locations imported: 55
+Roads imported: 105
+Resources imported: 40
+Service requests imported: 310
+CSV import complete.
+Starting CSV import...
+Locations imported: 55
+Roads imported: 105
+Resources imported: 40
+Service requests imported: 310
+CSV import complete.
+Loaded from SQLite hospital.db:
+  Locations        : 55
+  Roads / edges    : 105
+  Service requests : 310
+  Resources        : 40
+  Sample location  : Location{locationId=L001, name='Accident and Emergency Unit', area='Korle-Bu', type='EMERGENCY', latitude=5.5364, longitude=-0.2279}
+  Sample request   : ServiceRequest{requestId=SR001, sourceId=L041, destinationId=L001, category='EMERGENCY', urgency=CRITICAL, timeSubmitted='2024-01-02 08:05', deadline='2024-01-02 08:20', status='COMPLETED'}
+  Algorithm runs   : 95
+  Audit events     : 4
+Machine specification
+  os.name            = Windows 11
+  os.arch            = amd64
+  os.version         = 10.0
+  java.version       = 22.0.1
+  availableProcessors= 8
+  maxMemoryMB        = 2010
+  recordedAt         = 2026-08-25T14:04:59.139359200Z
+  repeats per cell   = 3 (average of wall-clock ns)
+
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\search_comparison.csv
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\sort_comparison.csv
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\hash_load_factor.csv
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\bst_vs_rbt.csv
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\heap_dispatch.csv
+Wrote C:\Users\USER\OneDrive\Desktop\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main (1)\Smart-Hospital-Operations-Optimizer_TEAM-NEXUS-main\docs\performance\graph_algorithms.csv
+algorithm_runs stored: 190
+

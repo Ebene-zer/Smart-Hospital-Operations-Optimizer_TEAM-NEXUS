@@ -36,6 +36,10 @@ public class BTree {
         return searchRecursive(root, patientId);
     }
 
+    public boolean contains(int patientId) {
+        return search(patientId) != null;
+    }
+
     private BTreeNode searchRecursive(BTreeNode current, int patientId) {
         if (current == null) {
             return null;

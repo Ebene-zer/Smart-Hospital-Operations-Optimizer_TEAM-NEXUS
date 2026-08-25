@@ -105,4 +105,11 @@ public class DequeTest {
         assertEquals("Deque: []", deque.toString());
     }
 
+    @Test
+    void removeFrontOnEmpty_throws() {
+        Deque<Integer> deque = new Deque<>();
+        assertThrows(IllegalStateException.class, deque::removeFront);
+        assertThrows(IllegalStateException.class, deque::removeRear);
+        assertThrows(IllegalStateException.class, deque::peekFront);
+    }
 }

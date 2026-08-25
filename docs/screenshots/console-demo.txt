@@ -1,0 +1,247 @@
+Korle-Bu Smart Hospital Operations Optimizer
+Team parameters (index-derived)
+  HASH_TABLE_CAPACITY = 83  (Ampadu fragment 113)
+  DIJKSTRA_PENALTY    = 1.47  (Nyamedor fragment 447)
+  DP hours            = 7 regular + 1 overtime  (Purity fragment 808)
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Starting CSV import...
+Locations imported: 55
+Roads imported: 105
+Resources imported: 40
+Service requests imported: 310
+CSV import complete.
+Starting CSV import...
+Locations imported: 55
+Roads imported: 105
+Resources imported: 40
+Service requests imported: 310
+CSV import complete.
+Loaded from SQLite hospital.db:
+  Locations        : 55
+  Roads / edges    : 105
+  Service requests : 310
+  Resources        : 40
+  Sample location  : Location{locationId=L001, name='Accident and Emergency Unit', area='Korle-Bu', type='EMERGENCY', latitude=5.5364, longitude=-0.2279}
+  Sample request   : ServiceRequest{requestId=SR001, sourceId=L041, destinationId=L001, category='EMERGENCY', urgency=CRITICAL, timeSubmitted='2024-01-02 08:05', deadline='2024-01-02 08:20', status='COMPLETED'}
+  Algorithm runs   : 0
+  Audit events     : 2
+Starting CSV import...
+Locations imported: 55
+Roads imported: 105
+Resources imported: 40
+Service requests imported: 310
+CSV import complete.
+Loaded from SQLite hospital.db:
+  Locations        : 55
+  Roads / edges    : 105
+  Service requests : 310
+  Resources        : 40
+  Sample location  : Location{locationId=L001, name='Accident and Emergency Unit', area='Korle-Bu', type='EMERGENCY', latitude=5.5364, longitude=-0.2279}
+  Sample request   : ServiceRequest{requestId=SR001, sourceId=L041, destinationId=L001, category='EMERGENCY', urgency=CRITICAL, timeSubmitted='2024-01-02 08:05', deadline='2024-01-02 08:20', status='COMPLETED'}
+  Algorithm runs   : 0
+  Audit events     : 2
+
+=== 1. Load / view data ===
+
+  Locations        : 55
+  Roads / edges    : 105
+  Service requests : 310
+  Resources        : 40
+  Sample location  : Location{locationId=L001, name='Accident and Emergency Unit', area='Korle-Bu', type='EMERGENCY', latitude=5.5364, longitude=-0.2279}
+  Sample request   : ServiceRequest{requestId=SR001, sourceId=L041, destinationId=L001, category='EMERGENCY', urgency=CRITICAL, timeSubmitted='2024-01-02 08:05', deadline='2024-01-02 08:20', status='COMPLETED'}
+  Algorithm runs   : 0
+  Audit events     : 2
+
+=== 2. Data structures ===
+
+DynamicArray resize log:
+RESIZE: size=2, oldCapacity=2 -> newCapacity=4
+
+Ward roster size: 2
+Pharmacy FIFO first: OPD-01
+Shift rotation 1: Nurse Amah
+Shift rotation 2: Nurse Boateng
+Nurses still on roster: 2
+Deque next (trauma first): Trauma Kofi
+OPD iterator walk:
+1. SR001 CRITICAL EMERGENCY
+2. SR003 MEDIUM ADMISSION
+3. SR002 HIGH ADMISSION
+
+Linear queue fill-drain-enqueue still works: C
+Undo stack peek: EDIT service_requests/SR001 :: accidental discharge
+Undo pop: EDIT service_requests/SR001 :: accidental discharge
+
+=== 3. Searching and sorting ===
+
+Linear search for ID 20 in unsorted log: index 2
+Binary-search precondition counterexample: binary search requires admissions sorted by patientId
+Binary search for ID 20 after sorting by patientId: index 1
+Quicksort by urgency (IDs): 10 20 30 
+
+=== 4. Scheduling ===
+
+Dispatch comparison on 12 requests
+
+FIFO queue:
+1. SR121 [CRITICAL @ 2024-01-07 08:00]
+2. SR122 [HIGH @ 2024-01-07 08:05]
+3. SR123 [MEDIUM @ 2024-01-07 08:10]
+4. SR124 [CRITICAL @ 2024-01-07 08:15]
+5. SR125 [LOW @ 2024-01-07 08:20]
+6. SR126 [HIGH @ 2024-01-07 08:25]
+7. SR127 [MEDIUM @ 2024-01-07 08:30]
+8. SR128 [HIGH @ 2024-01-07 08:35]
+9. SR129 [MEDIUM @ 2024-01-07 08:40]
+10. SR130 [LOW @ 2024-01-07 08:45]
+11. SR141 [HIGH @ 2024-01-08 08:00]
+12. SR142 [MEDIUM @ 2024-01-08 08:05]
+
+Circular queue (one rotation of the line):
+1. SR121 [CRITICAL @ 2024-01-07 08:00]
+2. SR122 [HIGH @ 2024-01-07 08:05]
+3. SR123 [MEDIUM @ 2024-01-07 08:10]
+4. SR124 [CRITICAL @ 2024-01-07 08:15]
+5. SR125 [LOW @ 2024-01-07 08:20]
+6. SR126 [HIGH @ 2024-01-07 08:25]
+7. SR127 [MEDIUM @ 2024-01-07 08:30]
+8. SR128 [HIGH @ 2024-01-07 08:35]
+9. SR129 [MEDIUM @ 2024-01-07 08:40]
+10. SR130 [LOW @ 2024-01-07 08:45]
+11. SR141 [HIGH @ 2024-01-08 08:00]
+12. SR142 [MEDIUM @ 2024-01-08 08:05]
+
+Deque (CRITICAL/HIGH jump the front):
+1. SR141 [HIGH @ 2024-01-08 08:00]
+2. SR128 [HIGH @ 2024-01-07 08:35]
+3. SR126 [HIGH @ 2024-01-07 08:25]
+4. SR124 [CRITICAL @ 2024-01-07 08:15]
+5. SR122 [HIGH @ 2024-01-07 08:05]
+6. SR121 [CRITICAL @ 2024-01-07 08:00]
+7. SR123 [MEDIUM @ 2024-01-07 08:10]
+8. SR125 [LOW @ 2024-01-07 08:20]
+9. SR127 [MEDIUM @ 2024-01-07 08:30]
+10. SR129 [MEDIUM @ 2024-01-07 08:40]
+11. SR130 [LOW @ 2024-01-07 08:45]
+12. SR142 [MEDIUM @ 2024-01-08 08:05]
+
+Urgency heap (extractMax):
+1. SR121 [CRITICAL @ 2024-01-07 08:00]
+2. SR124 [CRITICAL @ 2024-01-07 08:15]
+3. SR122 [HIGH @ 2024-01-07 08:05]
+4. SR126 [HIGH @ 2024-01-07 08:25]
+5. SR128 [HIGH @ 2024-01-07 08:35]
+6. SR141 [HIGH @ 2024-01-08 08:00]
+7. SR123 [MEDIUM @ 2024-01-07 08:10]
+8. SR127 [MEDIUM @ 2024-01-07 08:30]
+9. SR129 [MEDIUM @ 2024-01-07 08:40]
+10. SR142 [MEDIUM @ 2024-01-08 08:05]
+11. SR125 [LOW @ 2024-01-07 08:20]
+12. SR130 [LOW @ 2024-01-07 08:45]
+
+
+Busy A&E evening: 10 walk-ins then 2 trauma cases
+
+Heap extractMax order (critical first, then earlier time):
+1. SR-T01 [CRITICAL @ 2024-01-02 18:16]
+2. SR-T02 [CRITICAL @ 2024-01-02 18:18]
+3. SR-W06 [HIGH @ 2024-01-02 18:09]
+4. SR-W02 [MEDIUM @ 2024-01-02 18:03]
+5. SR-W04 [MEDIUM @ 2024-01-02 18:06]
+6. SR-W08 [MEDIUM @ 2024-01-02 18:12]
+7. SR-W10 [MEDIUM @ 2024-01-02 18:15]
+8. SR-W01 [LOW @ 2024-01-02 18:01]
+9. SR-W03 [LOW @ 2024-01-02 18:04]
+10. SR-W05 [LOW @ 2024-01-02 18:08]
+11. SR-W07 [LOW @ 2024-01-02 18:11]
+12. SR-W09 [LOW @ 2024-01-02 18:14]
+
+Deque order (trauma/high jump the front as they arrive):
+1. SR-T02 [CRITICAL @ 2024-01-02 18:18]
+2. SR-T01 [CRITICAL @ 2024-01-02 18:16]
+3. SR-W06 [HIGH @ 2024-01-02 18:09]
+4. SR-W01 [LOW @ 2024-01-02 18:01]
+5. SR-W02 [MEDIUM @ 2024-01-02 18:03]
+6. SR-W03 [LOW @ 2024-01-02 18:04]
+7. SR-W04 [MEDIUM @ 2024-01-02 18:06]
+8. SR-W05 [LOW @ 2024-01-02 18:08]
+9. SR-W07 [LOW @ 2024-01-02 18:11]
+10. SR-W08 [MEDIUM @ 2024-01-02 18:12]
+11. SR-W09 [LOW @ 2024-01-02 18:14]
+12. SR-W10 [MEDIUM @ 2024-01-02 18:15]
+
+
+=== 5. Graph algorithms ===
+
+Full graph nodes: 55 (adjacency list + matrix both stored)
+Campus-only nodes: 48
+Adjacency-matrix sample campus[0][1] = 0.1
+BFS nearest bed/ward from A&E: L002 Male Medical Ward
+DFS A&E -> Blood Bank (L026): REACHABLE
+DFS unreachable destination L999: false
+Dijkstra penalty = 1.47
+Ridge(L046) -> Korle-Bu(L001): 17.146 path=L046 -> L001
+Ridge(L046) -> Tema(L050): 29.998 path=L046 -> L048 -> L050
+Kruskal MST edges=47 total=7.5000000000000036
+Prim    MST edges=47 total=7.499999999999997
+Kruskal trace:
+Consider edge 0-1 cost=0.10 -> sets(0,1) ACCEPT
+Consider edge 0-2 cost=0.10 -> sets(0,2) ACCEPT
+Consider edge 0-10 cost=0.10 -> sets(0,10) ACCEPT
+Consider edge 0-39 cost=0.10 -> sets(0,39) ACCEPT
+Consider edge 0-44 cost=0.10 -> sets(0,44) ACCEPT
+Consider edge 1-2 cost=0.10 -> sets(0,0) REJECT
+Consider edge 3-4 cost=0.10 -> sets(3,4) ACCEPT
+...
+
+
+=== 6. Optimisation ===
+
+Greedy (urgency-first, capacity 2) allocated 1 patient(s); unallocated 2
+Brute force maximising patients treated: 2 patients from 8 subsets
+Greedy fails this objective because it takes the 2-unit critical case.
+DP theatre hours (index-derived) = 7+1
+DP selected 3 surgeries, benefit=23, hours used=7
+
+=== 7. Indexing ===
+
+Indexed requests=310 locations=55
+BST height=310 RBT height=9
+BST contains SR#1: true
+RBT contains SR#1: true
+B-tree contains SR#1: true
+Hash lookup SR#1: SR001 / EMERGENCY/CRITICAL
+Hash table size=310 capacity=83 load=3.735 collisions=227 longestChain=4
+BST inorder preview:
+ID: KB-1     | Name: SR001              | Location: EMERGENCY/CRITICAL
+ID: KB-2     | Name: SR002              | Location: ADMISSION/HIGH
+ID: KB-3     | Name: SR003              | Location: ADMISSION/MEDIUM
+ID: KB-4     | Name: SR004              | Location: TRANSFER/CRITICAL
+ID: KB-5     | Name: SR005              | Location: ADMISSION/HIGH
+ID: KB-6     | Name: SR006              | Location:...
+
+=== 8. Tests / results ===
+
+Unit tests live under src/test/java and are run with:
+  mvn test
+CI also runs mvn -B -V test on every push to main.
+
+=== 9. Performance results ===
+
+Missing docs\performance\machine_spec.txt ù choose option 10 to generate.
+Missing docs\performance\search_comparison.csv ù choose option 10 to generate.
+Missing docs\performance\sort_comparison.csv ù choose option 10 to generate.
+Missing docs\performance\hash_load_factor.csv ù choose option 10 to generate.
+Missing docs\performance\bst_vs_rbt.csv ù choose option 10 to generate.
+Missing docs\performance\heap_dispatch.csv ù choose option 10 to generate.
+Missing docs\performance\graph_algorithms.csv ù choose option 10 to generate.
+SVG line graphs (open in a browser): docs/performance/*.svg
+
+=== Team parameters ===
+
+Team parameters (index-derived)
+  HASH_TABLE_CAPACITY = 83  (Ampadu fragment 113)
+  DIJKSTRA_PENALTY    = 1.47  (Nyamedor fragment 447)
+  DP hours            = 7 regular + 1 overtime  (Purity fragment 808)

@@ -1,5 +1,6 @@
 package com.hospital.graph;
 
+import com.hospital.db.HospitalBootstrap;
 import com.hospital.db.LocationDAO;
 import com.hospital.db.RoadDAO;
 import com.hospital.model.Location;
@@ -12,7 +13,8 @@ import java.time.Instant;
 public class TraceGenerator {
 
     public static void main(String[] args) throws Exception {
-        double penalty = 1.0;
+        HospitalBootstrap.ensureReady();
+        double penalty = com.hospital.app.TeamParameters.DIJKSTRA_PENALTY;
         String accidentId = "L046"; // default: Ridge Hospital
         if (args.length > 0) {
             try { penalty = Double.parseDouble(args[0]); } catch (Exception ignored) {}

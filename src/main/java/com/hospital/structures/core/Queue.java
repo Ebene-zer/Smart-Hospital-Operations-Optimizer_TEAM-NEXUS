@@ -34,7 +34,7 @@ public class Queue<T> {
         if (isFull()) {
             throw new IllegalStateException("Queue is full.");
         }
-
+        compactIfNeeded();
         rear++;
         elements[rear] = element;
         size++;
@@ -50,6 +50,10 @@ public class Queue<T> {
         elements[front] = null;     // Helps garbage collection
         front++;
         size--;
+        if (size == 0) {
+            front = 0;
+            rear = -1;
+        }
 
         return removed;
     }
@@ -69,7 +73,25 @@ public class Queue<T> {
 
 
     public boolean isFull() {
-        return rear == capacity - 1;
+        return size == capacity;
+    }
+
+    /**
+     * A linear queue leaves unused slots at the front after dequeue. Shift
+     * live elements back to index 0 so fill-drain-enqueue reuse works.
+     */
+    private void compactIfNeeded() {
+        if (rear < capacity - 1 || front == 0) {
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            elements[i] = elements[front + i];
+        }
+        for (int i = size; i <= rear; i++) {
+            elements[i] = null;
+        }
+        rear = size - 1;
+        front = 0;
     }
 
 

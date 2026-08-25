@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class AuditEventDAO {
 
-    public void insert(String eventType, String entityTable, int entityId, String performedBy, String timestamp)
+    public void insert(String eventType, String entityTable, String entityId, String performedBy, String timestamp)
             throws SQLException {
         String sql = "INSERT INTO audit_events (event_type, entity_table, entity_id, performed_by, timestamp) VALUES (?, ?, ?, ?, ?)";
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, eventType);
             statement.setString(2, entityTable);
-            statement.setInt(3, entityId);
+            statement.setString(3, entityId);
             statement.setString(4, performedBy);
             statement.setString(5, timestamp);
             statement.executeUpdate();
@@ -36,7 +36,7 @@ public class AuditEventDAO {
                 row.put("event_id", rs.getInt("event_id"));
                 row.put("event_type", rs.getString("event_type"));
                 row.put("entity_table", rs.getString("entity_table"));
-                row.put("entity_id", rs.getInt("entity_id"));
+                row.put("entity_id", rs.getString("entity_id"));
                 row.put("performed_by", rs.getString("performed_by"));
                 row.put("timestamp", rs.getString("timestamp"));
                 rows.add(row);

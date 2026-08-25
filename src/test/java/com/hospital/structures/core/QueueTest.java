@@ -105,5 +105,33 @@ public class QueueTest {
         assertEquals(3, queue.dequeue());
     }
 
+    @Test
+    void fillDrainEnqueue_reusesCapacityAfterLinearQueueEmpties() {
+        Queue<String> queue = new Queue<>(2);
+        queue.enqueue("A");
+        queue.enqueue("B");
+        assertTrue(queue.isFull());
+        assertEquals("A", queue.dequeue());
+        assertEquals("B", queue.dequeue());
+        assertTrue(queue.isEmpty());
+        assertFalse(queue.isFull());
 
+        queue.enqueue("C");
+        queue.enqueue("D");
+        assertEquals("C", queue.dequeue());
+        assertEquals("D", queue.dequeue());
+    }
+
+    @Test
+    void enqueueAfterPartialDequeue_compactsInsteadOfReportingFull() {
+        Queue<Integer> queue = new Queue<>(3);
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        assertEquals(1, queue.dequeue());
+        queue.enqueue(4);
+        assertEquals(2, queue.dequeue());
+        assertEquals(3, queue.dequeue());
+        assertEquals(4, queue.dequeue());
+    }
 }

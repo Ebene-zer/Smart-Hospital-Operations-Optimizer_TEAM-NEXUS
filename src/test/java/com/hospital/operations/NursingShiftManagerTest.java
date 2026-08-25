@@ -23,11 +23,11 @@ public class NursingShiftManagerTest {
         manager.addNurse("Nurse B");
 
         assertEquals("Nurse A", manager.assignNurse());
-        assertEquals(2, manager.getNurseCount());
+        assertEquals(1, manager.getNurseCount());
         assertEquals("Nurse B", manager.getNextNurse());
+        assertEquals(1, manager.getNurseCount());
         assertEquals("Nurse B", manager.assignNurse());
-        assertEquals(2, manager.getNurseCount());
-        assertEquals("Nurse A", manager.getNextNurse());
+        assertEquals(0, manager.getNurseCount());
     }
 
     @Test

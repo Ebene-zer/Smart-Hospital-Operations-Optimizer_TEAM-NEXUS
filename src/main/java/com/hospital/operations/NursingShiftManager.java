@@ -18,9 +18,7 @@ public class NursingShiftManager {
         if (nurses.isEmpty()) {
             throw new IllegalStateException("No nurse available for assignment");
         }
-        String nurse = nurses.dequeue();
-        nurses.enqueue(nurse);
-        return nurse;
+        return nurses.dequeue();
     }
 
     public String getNextNurse(){

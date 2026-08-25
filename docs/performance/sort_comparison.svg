@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="360" y="28" text-anchor="middle" font-size="16">Sorting comparison</text>
+<line x1="70" y1="360" x2="670" y2="360" stroke="black"/>
+<line x1="70" y1="360" x2="70" y2="60" stroke="black"/>
+<text x="20" y="200" transform="rotate(-90 20,200)" font-size="12">avg ns</text>
+<text x="360" y="400" text-anchor="middle" font-size="12">input size</text>
+<polyline fill="none" stroke="#1f77b4" stroke-width="2" points="70.0,359.6 94.2,357.4 124.5,354.5 367.0,240.7 670.0,60.0 "/>
+<text x="80" y="50" font-size="12" fill="#1f77b4">selection_sort</text>
+<polyline fill="none" stroke="#ff7f0e" stroke-width="2" points="70.0,359.8 94.2,357.9 124.5,347.4 367.0,311.1 670.0,173.1 "/>
+<text x="210" y="50" font-size="12" fill="#ff7f0e">insertion_sort</text>
+<polyline fill="none" stroke="#2ca02c" stroke-width="2" points="70.0,359.9 94.2,359.7 124.5,359.1 367.0,358.2 670.0,355.0 "/>
+<text x="340" y="50" font-size="12" fill="#2ca02c">merge_sort</text>
+<polyline fill="none" stroke="#d62728" stroke-width="2" points="70.0,359.9 94.2,358.9 124.5,359.2 367.0,357.7 670.0,356.0 "/>
+<text x="470" y="50" font-size="12" fill="#d62728">quicksort</text>
+</svg>

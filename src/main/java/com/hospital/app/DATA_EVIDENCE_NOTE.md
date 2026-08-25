@@ -1,0 +1,5 @@
+# Data Evidence Note
+
+The dataset for this project was constructed based on publicly available information and local knowledge of the Greater Accra Region, specifically focusing on the Korle-Bu Teaching Hospital campus and its major referral network. Location data (names, types, and approximate geographic coordinates) was derived from online maps and general knowledge of the hospital's layout. The road network, including distances and estimated travel times, represents a simplified model of real-world connections.
+
+Crucially, **no real patient data is used in this project.** The `patients.csv` file contains synthetically generated records. Patient names are a mix of common Ghanaian names, names of public figures, and fictional characters to provide realistic-looking but entirely non-private data. Fields such as NHIS numbers, birth dates, and allergies are fabricated for demonstration purposes and do not correspond to any real individuals. This approach ensures the system can be demonstrated with a plausible dataset while upholding strict data privacy standards.

@@ -1,8 +1,46 @@
-# BFS/DFS reachability trace (placeholder)
+# BFS/DFS reachability trace generated: 2026-08-25T14:01:31.241589400Z
 
-This file will contain BFS and DFS reachability traces demonstrating
-how simulated corridor closures change reachability across the campus.
+BFS/DFS reachability trace
 
----
+Target (blood bank): L026
 
-(Placeholder - to be populated after running BFS/DFS on the live graph.)
+- L002 -> L026 : REACHABLE
+- L003 -> L026 : REACHABLE
+- L004 -> L026 : REACHABLE
+- L005 -> L026 : REACHABLE
+- L006 -> L026 : REACHABLE
+- L007 -> L026 : REACHABLE
+- L008 -> L026 : REACHABLE
+- L009 -> L026 : REACHABLE
+- L013 -> L026 : REACHABLE
+- L014 -> L026 : REACHABLE
+- L015 -> L026 : REACHABLE
+- L016 -> L026 : REACHABLE
+- L017 -> L026 : REACHABLE
+- L018 -> L026 : REACHABLE
+- L019 -> L026 : REACHABLE
+- L020 -> L026 : REACHABLE
+- L021 -> L026 : REACHABLE
+- L022 -> L026 : REACHABLE
+
+After removing one corridor (simulated):
+
+- L002 -> L026 : REACHABLE
+- L003 -> L026 : REACHABLE
+- L004 -> L026 : REACHABLE
+- L005 -> L026 : REACHABLE
+- L006 -> L026 : REACHABLE
+- L007 -> L026 : REACHABLE
+- L008 -> L026 : REACHABLE
+- L009 -> L026 : REACHABLE
+- L013 -> L026 : REACHABLE
+- L014 -> L026 : REACHABLE
+- L015 -> L026 : REACHABLE
+- L016 -> L026 : REACHABLE
+- L017 -> L026 : REACHABLE
+- L018 -> L026 : REACHABLE
+- L019 -> L026 : REACHABLE
+- L020 -> L026 : REACHABLE
+- L021 -> L026 : REACHABLE
+- L022 -> L026 : REACHABLE
+

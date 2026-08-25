@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS audit_events (
     event_id        INTEGER PRIMARY KEY,
     event_type      TEXT,
     entity_table    TEXT,
-    entity_id       INTEGER,
+    entity_id       TEXT,
     performed_by    TEXT,
     timestamp       TEXT
 );

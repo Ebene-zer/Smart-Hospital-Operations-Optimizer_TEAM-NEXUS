@@ -118,4 +118,21 @@ public class BinarySearchTree {
 
         buildInOrderTraversal(current.getRight(), traversal);
     }
+
+    public int height() {
+        return heightRecursive(root);
+    }
+
+    private int heightRecursive(Node current) {
+        if (current == null) {
+            return 0;
+        }
+        int left = heightRecursive(current.getLeft());
+        int right = heightRecursive(current.getRight());
+        return 1 + Math.max(left, right);
+    }
+
+    public Node find(int patientId) {
+        return searchRecursive(root, patientId);
+    }
 }

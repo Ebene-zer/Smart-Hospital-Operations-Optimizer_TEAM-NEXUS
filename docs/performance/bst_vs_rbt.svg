@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="360" y="28" text-anchor="middle" font-size="16">BST vs red-black search</text>
+<line x1="70" y1="360" x2="670" y2="360" stroke="black"/>
+<line x1="70" y1="360" x2="70" y2="60" stroke="black"/>
+<text x="20" y="200" transform="rotate(-90 20,200)" font-size="12">avg ns</text>
+<text x="360" y="400" text-anchor="middle" font-size="12">input size</text>
+<polyline fill="none" stroke="#1f77b4" stroke-width="2" points="70.0,359.5 97.1,344.6 217.7,302.2 368.5,205.8 670.0,111.7 "/>
+<text x="80" y="50" font-size="12" fill="#1f77b4">bst_search</text>
+<polyline fill="none" stroke="#ff7f0e" stroke-width="2" points="70.0,357.7 97.1,345.5 217.7,308.0 368.5,104.8 670.0,60.0 "/>
+<text x="210" y="50" font-size="12" fill="#ff7f0e">rbt_search</text>
+</svg>

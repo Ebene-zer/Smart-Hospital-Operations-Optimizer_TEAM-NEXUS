@@ -1,0 +1,9 @@
+Machine specification
+  os.name            = Windows 11
+  os.arch            = amd64
+  os.version         = 10.0
+  java.version       = 22.0.1
+  availableProcessors= 8
+  maxMemoryMB        = 2010
+  recordedAt         = 2026-08-25T14:05:05.797061700Z
+  repeats per cell   = 3 (average of wall-clock ns)

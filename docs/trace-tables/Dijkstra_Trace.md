@@ -1,10 +1,66 @@
-# Dijkstra trace (placeholder)
+# Dijkstra trace generated: 2026-08-25T14:01:31.171274600Z
 
-This file will contain the distance and predecessor tables for a sample
-accident → Korle-Bu and accident → Tema General comparison. Fill using
-the `Dijkstra.shortestPath` output run on the live dataset and include
-the step-by-step table matching project style.
+Source (accident): L046  
+Penalty multiplier: 1.470
 
----
+| Location | Distance | Predecessor |
+|---|---:|---|
+| L001 | 17.146 | L046 |
+| L002 | 18.716 | L001 |
+| L003 | 18.716 | L001 |
+| L004 | 18.816 | L001 |
+| L005 | 20.386 | L004 |
+| L006 | 20.386 | L002 |
+| L007 | 21.956 | L006 |
+| L008 | 20.386 | L003 |
+| L009 | 20.386 | L003 |
+| L010 | 20.486 | L011 |
+| L011 | 18.716 | L001 |
+| L012 | 20.286 | L011 |
+| L013 | 22.056 | L024 |
+| L014 | 22.156 | L006 |
+| L015 | 22.056 | L029 |
+| L016 | 22.156 | L024 |
+| L017 | 22.056 | L024 |
+| L018 | 22.450 | L029 |
+| L019 | 23.826 | L034 |
+| L020 | 22.056 | L024 |
+| L021 | 22.156 | L032 |
+| L022 | 22.256 | L032 |
+| L023 | 22.156 | L032 |
+| L024 | 20.386 | L002 |
+| L025 | 20.386 | L002 |
+| L026 | 21.956 | L025 |
+| L027 | 20.386 | L002 |
+| L028 | 21.956 | L027 |
+| L029 | 20.386 | L011 |
+| L030 | 21.956 | L029 |
+| L031 | 21.956 | L029 |
+| L032 | 20.486 | L041 |
+| L033 | 22.056 | L032 |
+| L034 | 22.156 | L032 |
+| L035 | 22.156 | L032 |
+| L036 | 21.956 | L037 |
+| L037 | 20.386 | L041 |
+| L038 | 21.956 | L037 |
+| L039 | 18.716 | L040 |
+| L040 | 17.146 | L046 |
+| L041 | 18.716 | L040 |
+| L042 | 22.056 | L037 |
+| L043 | 22.056 | L037 |
+| L044 | 21.956 | L037 |
+| L045 | 18.716 | L001 |
+| L046 | 0.000 | - |
+| L047 | 10.205 | L046 |
+| L048 | 7.058 | L046 |
+| L049 | 14.352 | L046 |
+| L050 | 29.998 | L048 |
+| L051 | 21.856 | L012 |
+| L052 | 22.450 | L029 |
+| L053 | 22.056 | L037 |
+| L054 | 14.969 | L047 |
+| L055 | 15.469 | L047 |
 
-(Placeholder - to be populated after running the algorithm against the real data.)
+## Paths
+- To Korle-Bu (L001): distance=17.146, path=L046 -> L001
+- To Tema General (L050): distance=29.998, path=L046 -> L048 -> L050

@@ -107,6 +107,7 @@ class SinglyLinkedListTest {
     }
 
 
+    @Test
     void iteratorDemo_walksFullWaitingListInOrder() {
         SinglyLinkedList<String> opd = new SinglyLinkedList<>();
         opd.addLast("Patient A (08:01)");

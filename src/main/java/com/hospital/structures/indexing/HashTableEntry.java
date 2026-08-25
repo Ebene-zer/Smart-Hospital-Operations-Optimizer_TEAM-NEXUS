@@ -1,6 +1,6 @@
 package com.hospital.structures.indexing;
 
-class HashTableEntry {
+public class HashTableEntry {
 
     private final int patientId;
     private String patientName;
